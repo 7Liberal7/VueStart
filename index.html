@@ -22,7 +22,10 @@
   </div> -->
   <div class="container">
     <div class="card">
-      <h2>{{title}}</h2>
+      <h2 :style="{
+        color: inputValue.length < 5 ? '#000' : '#ccc',
+        fontSize: inputValue.length < 10 ? '2rem' : '1rem' ,
+      }">{{title}}</h2>
       <div class="form-control">
         <input type="text"
          v-bind:placeholder="placeholder1" 
@@ -37,7 +40,12 @@
       <hr>
       <ul class="list" v-if="notes.length !== 0">
         <li class="list-item" v-for="(note, index) in notes">
-          ({{index +1}}) {{toUpperCase(note)}}
+          <!-- <span :class="note.length > 5 ? 'primary' : 'bold'">({{index +1}}) {{toUpperCase(note)}}</span> -->
+          <!-- <span :class="{
+            'primary' : true,
+            'bold' : note.length > 5
+          }">({{index +1}}) {{toUpperCase(note)}}</span> -->
+          <span :class="['bold', {'primary' : note.length > 5}]">({{index +1}}) {{toUpperCase(note)}}</span>
           <button class="btn danger" @click="removeNote(index, $event)">Удалить</button>
         </li>
         <hr>
